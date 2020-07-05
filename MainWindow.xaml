@@ -12,16 +12,21 @@
         <Label Name="lbVersion" HorizontalContentAlignment="Right" Content="Version" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="31" Width="188"/>
         <GroupBox Header="Opcje" HorizontalAlignment="Left" Height="374" Margin="360,10,0,0" VerticalAlignment="Top" Width="276">
             <Grid>
-                <Button Content="Nowe zamówienie" IsEnabled="False" HorizontalContentAlignment="Center"  Margin="4,10,4,303" FontSize="24" FontWeight="Bold"/>
-                <Button Content="Status zamówień" IsEnabled="False" HorizontalContentAlignment="Center"  Margin="4,80,4,233" FontSize="24" FontWeight="Bold"/>
-                <Button Content="Karta dań" IsEnabled="False" HorizontalContentAlignment="Center"  Margin="4,150,4,163" FontSize="24" FontWeight="Bold"/>
-                <Button Content="Ustawienia" IsEnabled="True" HorizontalContentAlignment="Center"  Margin="4,220,4,93" FontSize="24" FontWeight="Bold"/>
-                <Button Content="Statystyki" IsEnabled="False" HorizontalContentAlignment="Center"  Margin="4,290,4,23" FontSize="24" FontWeight="Bold"/>
+                <Button x:Name="btNewOrder" Content="Nowe zamówienie" IsEnabled="False" HorizontalContentAlignment="Center"
+                        Margin="4,10,4,303" FontSize="24" FontWeight="Bold" Click="btNewOrder_Click"/>
+                <Button x:Name="btStatusOrders" Content="Status zamówień" IsEnabled="False" HorizontalContentAlignment="Center"
+                        Margin="4,80,4,233" FontSize="24" FontWeight="Bold" Click="btStatusOrders_Click"/>
+                <Button x:Name="btMenu" Content="Karta dań" IsEnabled="False" HorizontalContentAlignment="Center"
+                        Margin="4,150,4,163" FontSize="24" FontWeight="Bold" Click="btMenu_Click"/>
+                <Button x:Name="btSettings" Content="Ustawienia" IsEnabled="True" HorizontalContentAlignment="Center"
+                        Margin="4,220,4,93" FontSize="24" FontWeight="Bold" Click="btSettings_Click"/>
+                <Button x:Name="btStats" Content="Statystyki" IsEnabled="False" HorizontalContentAlignment="Center"
+                        Margin="4,290,4,23" FontSize="24" FontWeight="Bold" Click="btStats_Click"/>
             </Grid>
 
         </GroupBox>
         <StatusBar Height="20" VerticalAlignment="Bottom" BorderThickness="1" BorderBrush="Black">
-            <TextBlock Name="lblCursorPosition" Text="Brak połączenia z bazą danych. Sprawdź ustawienia."
+            <TextBlock Name="tbConnectionStatus" Text="Brak połączenia z bazą danych. Sprawdź ustawienia."
                        Foreground="Red" Width="650" TextAlignment="Center"
                        FontSize="10"/>
         </StatusBar>

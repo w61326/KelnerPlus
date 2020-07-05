@@ -24,8 +24,33 @@ namespace KelnerPlus
         {
             InitializeComponent();
             lbVersion.Content = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            //MessageBox.Show("Brak połączenia z bazą danych. Najpierw skonfiguruj ustawienia.");
         }
 
+        private void btNewOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btStatusOrders_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btMenu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+            settingsWindow.Activate();
+        }
+
+        private void btStats_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
