@@ -26,12 +26,8 @@ namespace KelnerPlus
             lbVersion.Content = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
             // check if there is connection with database
-            // Connect();
+            Connect();
 
-            // temporary
-            MenuWindow menuWindow = new MenuWindow();
-            menuWindow.ShowDialog();
-            menuWindow.Activate();
 
         }
 
@@ -45,11 +41,19 @@ namespace KelnerPlus
             {
                 tbConnectionStatus.Foreground = Brushes.ForestGreen;
                 tbConnectionStatus.Text = "Połączono z bazą danych.";
-                MessageBox.Show("Ustanowiono połączenie z bazą!");
                 btNewOrder.IsEnabled = true;
                 btMenu.IsEnabled = true;
                 btStats.IsEnabled = true;
                 btStatusOrders.IsEnabled = true;
+            }
+            else
+            {
+                tbConnectionStatus.Text = "Brak połączenia z bazą danych. Sprawdź ustawienia.";
+                MessageBox.Show("Brak połączenia z bazą danych. Sprawdź ustawienia.");
+                btNewOrder.IsEnabled = false;
+                btMenu.IsEnabled = false;
+                btStats.IsEnabled = false;
+                btStatusOrders.IsEnabled = false;
             }
 
             btSettings.IsEnabled = true;
@@ -60,12 +64,20 @@ namespace KelnerPlus
 
         private void btNewOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuWindow newOrderWindow = new MenuWindow(true);
+            newOrderWindow.ShowDialog();
+            newOrderWindow.Activate();
+            if (newOrderWindow.DialogResult == true)
+            {
+                MessageBox.Show("Zamówienie trafiło do realizacji");
+            }
         }
 
         private void btStatusOrders_Click(object sender, RoutedEventArgs e)
         {
-
+            StatusWindow newStatusWindow = new StatusWindow();
+            newStatusWindow.ShowDialog();
+            newStatusWindow.Activate();
         }
 
         private void btMenu_Click(object sender, RoutedEventArgs e)
@@ -77,6 +89,11 @@ namespace KelnerPlus
 
         private void btSettings_Click(object sender, RoutedEventArgs e)
         {
+            btNewOrder.IsEnabled = false;
+            btMenu.IsEnabled = false;
+            btStats.IsEnabled = false;
+            btStatusOrders.IsEnabled = false;
+
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.ShowDialog();
             settingsWindow.Activate();
@@ -93,12 +110,8 @@ namespace KelnerPlus
             else
             {
                 tbConnectionStatus.Foreground = Brushes.Red;
-                tbConnectionStatus.Text = "Brak połączenia z bazą danych. Sprawdź ustawienia.";
-                MessageBox.Show("Brak połączenia z bazą danych. Sprawdź ustawienia.");
-                btNewOrder.IsEnabled = false;
-                btMenu.IsEnabled = false;
-                btStats.IsEnabled = false;
-                btStatusOrders.IsEnabled = false;
+                tbConnectionStatus.Text = "Ładowanie ustawień...";
+                Connect();
             }
         }
 

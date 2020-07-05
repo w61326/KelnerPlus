@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KelnerPlus"
         mc:Ignorable="d"
-        Title="Menu" Height="675.062" Width="801.757" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="chef.png">
+        Title="Menu" Height="642.852" Width="801.757" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="chef.png" Loaded="Window_Loaded">
     <Grid>
         <TabControl SelectionChanged="TabControl1_OnSelectionChanged" HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch"  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabControl.Resources>
@@ -13,62 +13,112 @@
                     <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
             </TabControl.Resources>
-            <TabItem x:Name="TabSoups">
-                <TabItem.Header>
-                    <TextBlock Text="Zupy" FontSize="30" />
-                </TabItem.Header>
-                <Grid Background="LemonChiffon">
-                    <ListBox x:Name="ListBoxSoups" SelectionChanged="ListBoxSoups_OnSelectionChanged"  HorizontalAlignment="Left" Height="466" Margin="537,56,0,0" VerticalAlignment="Top" Width="241" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" DisplayMemberPath="itemName"/>
-                    <Label Content="Nazwa" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,56,0,0" VerticalAlignment="Top" Width="166"/>
-                    <TextBox HorizontalAlignment="Left" Height="46" Margin="10,87,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="166"/>
-                    <CheckBox Content="Z laktozą" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,351,0,0">
-                        <CheckBox.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </CheckBox.LayoutTransform>
-                    </CheckBox>
-                    <CheckBox Content="Aktywne" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,507,0,0">
-                        <CheckBox.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </CheckBox.LayoutTransform>
-                    </CheckBox>
-                    <CheckBox Content="Wegetariańskie" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,429,0,0">
-                        <CheckBox.LayoutTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </CheckBox.LayoutTransform>
-                    </CheckBox>
-                    <TextBox HorizontalAlignment="Left" Height="324" Margin="307,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Text="- ziemniaki" AcceptsReturn="True"/>
-                    <Label Content="Składniki" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,56,0,0" VerticalAlignment="Top" Width="166"/>
-                    <Label Content="Opis" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,147,0,0" VerticalAlignment="Top" Width="166"/>
-                    <TextBox HorizontalAlignment="Left" Height="151" Margin="10,178,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="166"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Dania główne" FontSize="30">
-                <Grid Background="LightCyan"/>
-            </TabItem>
-            <TabItem Header="Napoje" FontSize="30">
-                <Grid Background="LightCyan"/>
-            </TabItem>
-            <TabItem Header="Przekąski" FontSize="30">
-                <Grid Background="LightCyan"/>
-            </TabItem>
-            <TabItem Header="Desery" FontSize="30">
-                <Grid Background="LightCyan"/>
-            </TabItem>
+            <TabItem Header="Zupy" x:Name="Tab1" FontSize="25"/>
+            <TabItem Header="Dania główne" x:Name="Tab2" FontSize="25"/>
+            <TabItem Header="Napoje" x:Name="Tab3" FontSize="25"/>
+            <TabItem Header="Przekąski" x:Name="Tab4" FontSize="25"/>
+            <TabItem Header="Desery" x:Name="Tab5" FontSize="25"/>
+            <TabItem Header="Koszyk" Foreground="Green" FontWeight="DemiBold" x:Name="Tab6" FontSize="25"/>
         </TabControl>
+        <Grid x:Name="GridForcart" Background="LemonChiffon" Margin="0,40,0,0">
+            <Button Name="btStartOrder" FontSize="40" Content="Kliknij tutaj, aby rozpocząć zamówienie" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="706" Height="77" Click="btStartOrder_Click" IsDefault="True"/>
+            <ListView Name="lvOrders" HorizontalContentAlignment="Stretch"  Margin="10,10,400,82" AutomationProperties.IsColumnHeader="True">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Width="280">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ItemName}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                                <GridViewColumn.Header>
+                                    <TextBlock Text="Nazwa"></TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="40">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Quantity}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                                <GridViewColumn.Header>
+                                    <TextBlock Text="Ilość"></TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="40">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Price}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                                <GridViewColumn.Header>
+                                    <TextBlock Text="Cena"></TextBlock>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBox x:Name="tbNote" HorizontalAlignment="Left" Height="212" Margin="469,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" AcceptsReturn="True"/>
+            <Label Content="Notatka do zamówienia" FontSize="25" HorizontalAlignment="Left" Margin="469,18,0,0" VerticalAlignment="Top" Width="282"/>
+
+        </Grid>
+
+        <Grid Visibility="Collapsed" x:Name="GridForMenu" Background="LemonChiffon" Margin="0,40,0,0">
+            <ListBox x:Name="ListBoxMenu" SelectionChanged="ListBoxMenu_OnSelectionChanged"  HorizontalAlignment="Left" Height="466" Margin="537,17,0,0" VerticalAlignment="Top" Width="241" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" DisplayMemberPath="itemName" FontSize="20">
+                <ListBoxItem Content="test"/>
+                <ListBoxItem Content="testujee testujee testujee"/>
+            </ListBox>
+
+
+            <CheckBox x:Name="CheckBoxLactose" Content="Z laktozą" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,351,0,0" IsEnabled="False">
+                <CheckBox.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+            <CheckBox x:Name="CheckBoxActive" Content="Aktywne" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,507,0,0" IsEnabled="False">
+                <CheckBox.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+            <CheckBox x:Name="CheckBoxVege" Content="Wegetariańskie" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,429,0,0" IsEnabled="False">
+                <CheckBox.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+
+
+            <TextBox x:Name="TextBoxIngredients" HorizontalAlignment="Left" Height="324" Margin="307,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="166" Text="- ziemniaki" AcceptsReturn="True" IsEnabled="False"/>
+            <TextBox x:Name="TextBoxDescription" HorizontalAlignment="Left" Height="151" Margin="10,152,0,0" TextWrapping="Wrap" Text="Opis" VerticalAlignment="Top" Width="166" AcceptsReturn="True" IsEnabled="False"/>
+            <TextBox x:Name="TextBoxPrice" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Height="19" Margin="309,417,0,0" TextWrapping="Wrap" Text="424.25 PLN" VerticalAlignment="Top" Width="166" IsEnabled="False" FontWeight="Bold"/>
+            <TextBox x:Name="TextBoxTitle" HorizontalAlignment="Left" Height="46" Margin="10,61,0,0" TextWrapping="Wrap" Text="Nazwa" VerticalAlignment="Top" Width="166" IsEnabled="False"/>
+
+            <!-- not relevant -->
+            <Label Content="Cena" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,393,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
+            <Label Content="Składniki" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,32,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
+            <Label Content="Opis" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,121,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
+            <Label Content="Nazwa" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,32,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
+            <Button Content="Dodaj do koszyka" x:Name="btAddItem" FontSize="30" HorizontalAlignment="Left" Margin="537,486,0,0" VerticalAlignment="Top" Width="241" Height="67" Click="btAddItem_Click">
+            </Button>
+            <ComboBox FontSize="30" Name="cbQuantity" HorizontalAlignment="Left" Margin="307,472,0,0" VerticalAlignment="Top" Width="168"/>
+            <Label Content="Ilość" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,446,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
+        </Grid>
+
     </Grid>
 </Window>
