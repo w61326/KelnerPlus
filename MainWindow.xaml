@@ -18,7 +18,7 @@
                         Margin="4,80,4,233" FontSize="24" FontWeight="Bold" Click="btStatusOrders_Click"/>
                 <Button x:Name="btMenu" Content="Karta dań" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,150,4,163" FontSize="24" FontWeight="Bold" Click="btMenu_Click"/>
-                <Button x:Name="btSettings" Content="Ustawienia" IsEnabled="True" HorizontalContentAlignment="Center"
+                <Button x:Name="btSettings" Content="Ustawienia" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,220,4,93" FontSize="24" FontWeight="Bold" Click="btSettings_Click"/>
                 <Button x:Name="btStats" Content="Statystyki" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,290,4,23" FontSize="24" FontWeight="Bold" Click="btStats_Click"/>
@@ -27,7 +27,7 @@
         </GroupBox>
         <StatusBar Height="20" VerticalAlignment="Bottom" BorderThickness="1" BorderBrush="Black">
             <TextBlock Name="tbConnectionStatus" Text="Brak połączenia z bazą danych. Sprawdź ustawienia."
-                       Foreground="Red" Width="650" TextAlignment="Center"
+                       Foreground="Red" Width="650" FontWeight="Bold" TextAlignment="Center"
                        FontSize="10"/>
         </StatusBar>
     </Grid>

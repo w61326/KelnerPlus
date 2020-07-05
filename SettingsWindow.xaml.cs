@@ -11,12 +11,14 @@ namespace KelnerPlus
     /// </summary>
     public partial class SettingsWindow : Window
     {
+
         public SettingsWindow()
         {
             InitializeComponent();
             this.Owner = App.Current.MainWindow;
-        }
+            GetSettings();
 
+        }
 
         private void ConfigEdit(object sender, RoutedEventArgs e)
         {
@@ -32,63 +34,76 @@ namespace KelnerPlus
                 !string.IsNullOrWhiteSpace(tbDBUser.Text) &&
                 !string.IsNullOrWhiteSpace(pbDBPass.Password))
             {
-                btCheckCfg.IsEnabled = true;
+                btSaveSettings.IsEnabled = true;
             }
             else
             {
-                btCheckCfg.IsEnabled = false;
+                btSaveSettings.IsEnabled = false;
             }
         }
 
         private async void btCheckCfg_Click(object sender, RoutedEventArgs e)
         {
-            Task<bool> task = new Task<bool>(IsServerConnected);
+
+            btCheckCfg.IsEnabled = false;
+            Task<bool> task = new Task<bool>(Connections.IsServerConnected);
+
             ProgressBarSettings.IsIndeterminate = true;
             task.Start();
 
             if (await task)
             {
-                ProgressBarSettings.IsIndeterminate = false;
-                btSaveSettings.IsEnabled = true;
+                this.DialogResult = true;
+                this.Close();
             }
-            
+
+            ProgressBarSettings.IsIndeterminate = false;
+            btCheckCfg.IsEnabled = true;
         }
 
-        /// <summary>
-        /// Test that the server is connected
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        /// <returns>true if the connection is opened</returns>
-        private static bool IsServerConnected()
-        {
-            string dbServer, dbName, dbUser, dbPass;
-            Thread.Sleep(2000);
-            //string connectionString = string.Format("server={0};database={1};uid={2};password={3};", dbServer, dbName, dbUser, dbPass);
-            string connectionString = "server=DESKTOP;database=kitchen;uid=sa;password=test;";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    connection.Close();
-                    return true;
-                }
-                catch (SqlException ex)
-                {
-                    StringBuilder errorMessages = new StringBuilder();
-                    for (int i = 0; i < ex.Errors.Count; i++)
-                    {
-                        errorMessages.Append("Index #" + i + "\n" +
-                                             "Message: " + ex.Errors[i].Message + "\n" +
-                                             "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                                             "Source: " + ex.Errors[i].Source + "\n" +
-                                             "Procedure: " + ex.Errors[i].Procedure + "\n");
-                    }
+        
 
-                    MessageBox.Show(errorMessages.ToString());
-                    return false;
-                }
+        private void BtSaveSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (tbDBName.IsEnabled)
+            {
+                SaveSettings();
+                tbDBServer.IsEnabled = false;
+                tbDBName.IsEnabled = false;
+                tbDBUser.IsEnabled = false;
+                pbDBPass.IsEnabled = false;
+                btSaveSettings.Content = "Edytuj";
+                btCheckCfg.IsEnabled = true;
             }
+            else
+            {
+                tbDBServer.IsEnabled = true;
+                tbDBName.IsEnabled = true;
+                tbDBUser.IsEnabled = true;
+                pbDBPass.IsEnabled = true;
+                pbDBPass.Password = "";
+                btSaveSettings.Content = "Zapisz";
+                btSaveSettings.IsEnabled = false;
+                btCheckCfg.IsEnabled = false;
+            }
+        }
+
+        public void GetSettings()
+        {
+            tbDBServer.Text = Properties.Settings.Default.ServerName.ToString();
+            tbDBName.Text = Properties.Settings.Default.DBName.ToString();
+            tbDBUser.Text = Properties.Settings.Default.DBUserName.ToString();
+            pbDBPass.Password = Properties.Settings.Default.DBPassword.ToString();
+        }
+
+        public void SaveSettings()
+        {
+
+            Properties.Settings.Default.ServerName = tbDBServer.Text;
+            Properties.Settings.Default.DBName = tbDBName.Text;
+            Properties.Settings.Default.DBUserName = tbDBUser.Text;
+            Properties.Settings.Default.DBPassword = pbDBPass.Password;
+            Properties.Settings.Default.Save();
         }
     }
 }

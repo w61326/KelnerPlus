@@ -12,16 +12,16 @@
             <TabItem Header="Database">
                 <Grid>
 
-                    <TextBox Name="tbDBServer" MinHeight="23" TextWrapping="Wrap" Text="localhost" Margin="119,14,198,144" TextChanged="ConfigEdit"  />
+                    <TextBox Name="tbDBServer" IsEnabled="False" MinHeight="23" TextWrapping="Wrap" Text="localhost" Margin="119,14,198,144" TextChanged="ConfigEdit"  />
                     <Label Content="Database Server" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
-                    <TextBox Name="tbDBName" MinHeight="23" TextWrapping="Wrap" Text="myKitchenDB" Margin="119,54,198,104" TextChanged="ConfigEdit" />
+                    <TextBox Name="tbDBName" IsEnabled="False" MinHeight="23" TextWrapping="Wrap" Text="myKitchenDB" Margin="119,54,198,104" TextChanged="ConfigEdit" />
                     <Label Content="Database Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
-                    <TextBox Name="tbDBUser" MinHeight="23" TextWrapping="Wrap" Text="kitchenUser" Margin="119,94,198,64" TextChanged="ConfigEdit" />
+                    <TextBox Name="tbDBUser" IsEnabled="False" MinHeight="23" TextWrapping="Wrap" Text="kitchenUser" Margin="119,94,198,64" TextChanged="ConfigEdit" />
                     <Label Content="User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
-                    <PasswordBox Name="pbDBPass" MinHeight="23" Password="Moje.Hasło.2020" Margin="119,134,198,25" PasswordChanged="ConfigEdit"/>
+                    <PasswordBox Name="pbDBPass" IsEnabled="False" MinHeight="23" Password="Moje.Hasło.2020" Margin="119,134,198,25" PasswordChanged="ConfigEdit"/>
                     <Label Content="Password" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0"/>
                     <Button Name="btCheckCfg" Content="Połącz" IsEnabled="True" FontSize="24" Margin="314,17,20,113" Click="btCheckCfg_Click"/>
-                    <Button Name="btSaveSettings" Content="Zapisz" IsEnabled="False" FontSize="24" Margin="314,97,20,33"/>
+                    <Button Name="btSaveSettings" Content="Edytuj" IsEnabled="True" FontSize="24" Margin="314,97,20,33" Click="BtSaveSettings_OnClick"/>
                     <ProgressBar Name="ProgressBarSettings" Height="15"  HorizontalAlignment="Stretch" VerticalAlignment="Bottom" IsEnabled="False" Maximum="20"/>
                 </Grid>
             </TabItem>

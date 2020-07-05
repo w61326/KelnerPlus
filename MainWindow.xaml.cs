@@ -24,6 +24,38 @@ namespace KelnerPlus
         {
             InitializeComponent();
             lbVersion.Content = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+
+            // check if there is connection with database
+            // Connect();
+
+            // temporary
+            MenuWindow menuWindow = new MenuWindow();
+            menuWindow.ShowDialog();
+            menuWindow.Activate();
+
+        }
+
+        private async void Connect()
+        {
+            Task<bool> task = new Task<bool>(Connections.IsServerConnected);
+
+            task.Start();
+
+            if (await task)
+            {
+                tbConnectionStatus.Foreground = Brushes.ForestGreen;
+                tbConnectionStatus.Text = "Połączono z bazą danych.";
+                MessageBox.Show("Ustanowiono połączenie z bazą!");
+                btNewOrder.IsEnabled = true;
+                btMenu.IsEnabled = true;
+                btStats.IsEnabled = true;
+                btStatusOrders.IsEnabled = true;
+            }
+
+            btSettings.IsEnabled = true;
+
+
+
         }
 
         private void btNewOrder_Click(object sender, RoutedEventArgs e)
@@ -38,7 +70,9 @@ namespace KelnerPlus
 
         private void btMenu_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuWindow menuWindow = new MenuWindow();
+            menuWindow.ShowDialog();
+            menuWindow.Activate();
         }
 
         private void btSettings_Click(object sender, RoutedEventArgs e)
@@ -46,11 +80,31 @@ namespace KelnerPlus
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.ShowDialog();
             settingsWindow.Activate();
+            if (settingsWindow.DialogResult == true)
+            {
+                tbConnectionStatus.Foreground = Brushes.ForestGreen;
+                tbConnectionStatus.Text = "Połączono z bazą danych.";
+                MessageBox.Show("Ustanowiono połączenie z bazą!");
+                btNewOrder.IsEnabled = true;
+                btMenu.IsEnabled = true;
+                btStats.IsEnabled = true;
+                btStatusOrders.IsEnabled = true;
+            }
+            else
+            {
+                tbConnectionStatus.Foreground = Brushes.Red;
+                tbConnectionStatus.Text = "Brak połączenia z bazą danych. Sprawdź ustawienia.";
+                MessageBox.Show("Brak połączenia z bazą danych. Sprawdź ustawienia.");
+                btNewOrder.IsEnabled = false;
+                btMenu.IsEnabled = false;
+                btStats.IsEnabled = false;
+                btStatusOrders.IsEnabled = false;
+            }
         }
 
         private void btStats_Click(object sender, RoutedEventArgs e)
         {
-
+            var myQuery = Connections.ExecuteSqlCommand("select * FROM test");
         }
     }
 }
