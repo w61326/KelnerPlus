@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KelnerPlus"
         mc:Ignorable="d"
-        Title="Statusy zamówienia" Height="409.646" Width="766.853" Icon="chef.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Statusy zamówienia" Height="443.041" Width="825.851" Icon="chef.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ListView Name="lvStatuses" Margin="0,0,128,0" FontSize="18">
+        <ListView Name="LvStatuses" Margin="0,0,128,0" FontSize="18">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Data złożenia zamówienia" Width="220" DisplayMemberBinding="{Binding OrderTime}" />
@@ -15,7 +14,12 @@
                     <GridViewColumn Header="Notatka" Width="200" DisplayMemberBinding="{Binding Note}" />
                 </GridView>
             </ListView.View>
-
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Zmień status" Click="btFinishOrder_Click" />
+                    <MenuItem Header="Pokaż szczegóły" Click="ShowDetails_OnClick"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
@@ -26,7 +30,8 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <Button x:Name="btFinishOrder" Content="Zmień&#xa;status" FontSize="15"  Margin="638,82,5,0" VerticalAlignment="Top" Height="70" Click="btFinishOrder_Click"/>
-        <Button x:Name="btRemoveOrder" Content="    Usuń&#xA;zamówienie"  FontSize="15" Margin="638,170,5,0" VerticalAlignment="Top" Height="70"/>
+        <Button x:Name="BtFinishOrder" Content="Zmień&#xa;status" FontSize="15"  Margin="697,82,5,0" VerticalAlignment="Top" Height="70" Click="btFinishOrder_Click"/>
+        <Button x:Name="BtRemoveOrder" IsEnabled="False" Visibility="Collapsed" Content="    Usuń&#xA;zamówienie"  FontSize="15" Margin="638,170,5,0" VerticalAlignment="Top" Height="70"/>
+        <Button x:Name="BtDetailsOrder" Content="  Szczegóły&#xA;zamówienia" FontSize="15"  Margin="697,181,5,0" VerticalAlignment="Top" Height="70" Click="ShowDetails_OnClick"/>
     </Grid>
 </Window>

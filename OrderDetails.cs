@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace KelnerPlus
+﻿namespace KelnerPlus
 {
+   /// <summary>
+   /// Klasa przechowująca szczegóły naszego zamówienia
+   /// </summary>
    public class OrderDetails
     {
+        public OrderDetails()
+        {
+        }
+
         public OrderDetails(MenuItem selected, int cbQuantity)
         {
-            MenuItemId = selected.id;
-            ItemName = selected.itemName;
+            MenuItemId = selected.Id;
+            ItemName = selected.ItemName;
             Quantity = cbQuantity;
-            Price = selected.price;
+            Price = selected.Price;
         }
 
         public int Id { get; set; }

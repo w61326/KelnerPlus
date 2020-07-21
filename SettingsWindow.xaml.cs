@@ -1,51 +1,59 @@
-﻿using System.Data.SqlClient;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
+using KelnerPlus.Properties;
 
 namespace KelnerPlus
 {
     /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
+    /// Okno wprowadzania ustawień połączenia do bazy
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class SettingsWindow
     {
 
         public SettingsWindow()
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
+            Owner = Application.Current.MainWindow;
             GetSettings();
 
         }
 
+        /// <summary>
+        /// Zdarzenie wywoływane podczas edycji któregoś z textboxu ustawień
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ConfigEdit(object sender, RoutedEventArgs e)
         {
-            // do not check if window is still loading
-            if (!this.IsLoaded)
+            // sprawdzenie czy okno nadal się ładuje
+            if (!IsLoaded)
             {
                 return;
             }
 
-            // check if user set config and make Check connection button enabled
-            if (!string.IsNullOrWhiteSpace(tbDBServer.Text) &&
-                !string.IsNullOrWhiteSpace(tbDBName.Text) &&
-                !string.IsNullOrWhiteSpace(tbDBUser.Text) &&
-                !string.IsNullOrWhiteSpace(pbDBPass.Password))
+            // sprawdzenie czy textboxy ustawień nie są puste
+            if (!string.IsNullOrWhiteSpace(TbDbServer.Text) &&
+                !string.IsNullOrWhiteSpace(TbDbName.Text) &&
+                !string.IsNullOrWhiteSpace(TbDbUser.Text) &&
+                !string.IsNullOrWhiteSpace(PbDbPass.Password))
             {
-                btSaveSettings.IsEnabled = true;
+                BtSaveSettings.IsEnabled = true;
             }
             else
             {
-                btSaveSettings.IsEnabled = false;
+                BtSaveSettings.IsEnabled = false;
             }
         }
 
+        /// <summary>
+        /// Zdarzenie po kliknięciu "Sprawdź połączenie"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btCheckCfg_Click(object sender, RoutedEventArgs e)
         {
 
-            btCheckCfg.IsEnabled = false;
+            BtCheckCfg.IsEnabled = false;
             Task<bool> task = new Task<bool>(Connections.IsServerConnected);
 
             ProgressBarSettings.IsIndeterminate = true;
@@ -53,57 +61,67 @@ namespace KelnerPlus
 
             if (await task)
             {
-                this.DialogResult = true;
-                this.Close();
+                DialogResult = true;
+                Close();
             }
 
             ProgressBarSettings.IsIndeterminate = false;
-            btCheckCfg.IsEnabled = true;
+            BtCheckCfg.IsEnabled = true;
         }
 
         
 
+        /// <summary>
+        /// Zdarzenie po kliknięciu zapisz/edytuj ustawienia
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtSaveSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            if (tbDBName.IsEnabled)
+            if (TbDbName.IsEnabled)
             {
                 SaveSettings();
-                tbDBServer.IsEnabled = false;
-                tbDBName.IsEnabled = false;
-                tbDBUser.IsEnabled = false;
-                pbDBPass.IsEnabled = false;
-                btSaveSettings.Content = "Edytuj";
-                btCheckCfg.IsEnabled = true;
+                TbDbServer.IsEnabled = false;
+                TbDbName.IsEnabled = false;
+                TbDbUser.IsEnabled = false;
+                PbDbPass.IsEnabled = false;
+                BtSaveSettings.Content = "Edytuj";
+                BtCheckCfg.IsEnabled = true;
             }
             else
             {
-                tbDBServer.IsEnabled = true;
-                tbDBName.IsEnabled = true;
-                tbDBUser.IsEnabled = true;
-                pbDBPass.IsEnabled = true;
-                pbDBPass.Password = "";
-                btSaveSettings.Content = "Zapisz";
-                btSaveSettings.IsEnabled = false;
-                btCheckCfg.IsEnabled = false;
+                TbDbServer.IsEnabled = true;
+                TbDbName.IsEnabled = true;
+                TbDbUser.IsEnabled = true;
+                PbDbPass.IsEnabled = true;
+                PbDbPass.Password = "";
+                BtSaveSettings.Content = "Zapisz";
+                BtSaveSettings.IsEnabled = false;
+                BtCheckCfg.IsEnabled = false;
             }
         }
 
+        /// <summary>
+        /// Załadowanie ustawień do textboxów
+        /// </summary>
         public void GetSettings()
         {
-            tbDBServer.Text = Properties.Settings.Default.ServerName.ToString();
-            tbDBName.Text = Properties.Settings.Default.DBName.ToString();
-            tbDBUser.Text = Properties.Settings.Default.DBUserName.ToString();
-            pbDBPass.Password = Properties.Settings.Default.DBPassword.ToString();
+            TbDbServer.Text = Settings.Default.ServerName;
+            TbDbName.Text = Settings.Default.DBName;
+            TbDbUser.Text = Settings.Default.DBUserName;
+            PbDbPass.Password = Settings.Default.DBPassword;
         }
 
+        /// <summary>
+        /// Zapis ustawień do bazy danych
+        /// </summary>
         public void SaveSettings()
         {
-
-            Properties.Settings.Default.ServerName = tbDBServer.Text;
-            Properties.Settings.Default.DBName = tbDBName.Text;
-            Properties.Settings.Default.DBUserName = tbDBUser.Text;
-            Properties.Settings.Default.DBPassword = pbDBPass.Password;
-            Properties.Settings.Default.Save();
+            Settings.Default.ServerName = TbDbServer.Text;
+            Settings.Default.DBName = TbDbName.Text;
+            Settings.Default.DBUserName = TbDbUser.Text;
+            Settings.Default.DBPassword = PbDbPass.Password;
+            Settings.Default.Save();
         }
     }
 }

@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KelnerPlus"
         mc:Ignorable="d"
         Title="Menu" Height="642.852" Width="801.757" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="chef.png" Loaded="Window_Loaded">
     <Grid>
-        <TabControl SelectionChanged="TabControl1_OnSelectionChanged" HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch"  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <TabControl SelectionChanged="TabControl1_OnSelectionChanged" HorizontalAlignment="Stretch" Name="TabControl1" VerticalAlignment="Stretch"  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabPanel}">
                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -21,8 +20,8 @@
             <TabItem Header="Koszyk" Foreground="Green" FontWeight="DemiBold" x:Name="Tab6" FontSize="25"/>
         </TabControl>
         <Grid x:Name="GridForcart" Background="LemonChiffon" Margin="0,40,0,0">
-            <Button Name="btStartOrder" FontSize="40" Content="Kliknij tutaj, aby rozpocząć zamówienie" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="706" Height="77" Click="btStartOrder_Click" IsDefault="True"/>
-            <ListView Name="lvOrders" HorizontalContentAlignment="Stretch"  Margin="10,10,400,82" AutomationProperties.IsColumnHeader="True">
+            <Button Name="BtStartOrder" FontSize="40" Content="Kliknij tutaj, aby rozpocząć zamówienie" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="706" Height="77" Click="btStartOrder_Click" IsDefault="True"/>
+            <ListView Name="LvOrders" HorizontalContentAlignment="Stretch"  Margin="10,10,400,82" AutomationProperties.IsColumnHeader="True">
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
@@ -60,15 +59,18 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <TextBox x:Name="tbNote" HorizontalAlignment="Left" Height="212" Margin="469,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" AcceptsReturn="True"/>
+            <TextBox x:Name="TbNote" HorizontalAlignment="Left" Height="212" Margin="469,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" AcceptsReturn="True"/>
             <Label Content="Notatka do zamówienia" FontSize="25" HorizontalAlignment="Left" Margin="469,18,0,0" VerticalAlignment="Top" Width="282"/>
 
         </Grid>
 
         <Grid Visibility="Collapsed" x:Name="GridForMenu" Background="LemonChiffon" Margin="0,40,0,0">
-            <ListBox x:Name="ListBoxMenu" SelectionChanged="ListBoxMenu_OnSelectionChanged"  HorizontalAlignment="Left" Height="466" Margin="537,17,0,0" VerticalAlignment="Top" Width="241" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" DisplayMemberPath="itemName" FontSize="20">
-                <ListBoxItem Content="test"/>
-                <ListBoxItem Content="testujee testujee testujee"/>
+            <ListBox x:Name="ListBoxMenu" SelectionChanged="ListBoxMenu_OnSelectionChanged"  HorizontalAlignment="Left" Height="466" Margin="537,17,0,0" VerticalAlignment="Top" Width="241" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" DisplayMemberPath="ItemName" FontSize="20">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Aktywuj/dezaktywuj" Click="MenuItem_OnClick" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListBox>
 
 
@@ -114,10 +116,10 @@
             <Label Content="Składniki" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,32,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
             <Label Content="Opis" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,121,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
             <Label Content="Nazwa" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,32,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
-            <Button Content="Dodaj do koszyka" x:Name="btAddItem" FontSize="30" HorizontalAlignment="Left" Margin="537,486,0,0" VerticalAlignment="Top" Width="241" Height="67" Click="btAddItem_Click">
+            <Button Content="Dodaj do koszyka" x:Name="BtAddItem" FontSize="30" HorizontalAlignment="Left" Margin="537,486,0,0" VerticalAlignment="Top" Width="241" Height="67" Click="btAddItem_Click">
             </Button>
-            <ComboBox FontSize="30" Name="cbQuantity" HorizontalAlignment="Left" Margin="307,472,0,0" VerticalAlignment="Top" Width="168"/>
-            <Label Content="Ilość" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,446,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
+            <ComboBox FontSize="30" Name="CbQuantity" HorizontalAlignment="Left" Margin="307,472,0,0" VerticalAlignment="Top" Width="168"/>
+            <Label Content="Ilość" Name="LQuantity" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="309,446,0,0" VerticalAlignment="Top" Width="166" FontWeight="Bold"/>
         </Grid>
 
     </Grid>

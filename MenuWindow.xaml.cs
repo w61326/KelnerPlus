@@ -9,19 +9,23 @@ namespace KelnerPlus
     /// <summary>
     /// Interaction logic for MenuWindow.xaml
     /// </summary>
-    public partial class MenuWindow : Window
+    public partial class MenuWindow
     {
-        private List<MenuItem> menuItems;
-        Order myOrder;
+        public List<MenuItem> MenuItems;
+        private Order _myOrder;
 
+        /// <summary>
+        /// Inicjalizacja naszego okna Menu
+        /// </summary>
+        /// <param name="newOrder"> parametr prawda/fałsz czy mają być dostępne opcje składania zamówienia</param>
         public MenuWindow(bool newOrder = false)
         {
             InitializeComponent();
             GridForMenu.Visibility = Visibility.Visible;
             ListBoxMenu.Items.Clear();
-            menuItems = Connections.GetMenuItems();
+            MenuItems = Connections.GetMenuItems();
             ArrayList itemsList = new ArrayList();
-            foreach (var menuItem in menuItems)
+            foreach (var menuItem in MenuItems)
             {
                 itemsList.Add(menuItem);
             }
@@ -31,18 +35,24 @@ namespace KelnerPlus
             if (!newOrder)
             {
                 Tab6.Visibility = Visibility.Collapsed;
-                btAddItem.Visibility = Visibility.Collapsed;
-                cbQuantity.Visibility = Visibility.Collapsed;
+                BtAddItem.Visibility = Visibility.Collapsed;
+                CbQuantity.Visibility = Visibility.Collapsed;
+                LQuantity.Visibility = Visibility.Collapsed;
             }
             else
             {
                 for (int i = 1; i < 20; i++)
                 {
-                    cbQuantity.Items.Add(i);
+                    CbQuantity.Items.Add(i);
                 }
 
-                cbQuantity.SelectedIndex = 0;
+                CbQuantity.SelectedIndex = 0;
                 Tab6.IsSelected = true;
+                foreach (var tabItem in TabControl1.Items)
+                {
+                    ((TabItem) tabItem).IsEnabled = false;
+                }
+
                 if (Tab6.IsSelected)
                 {
                     GridForMenu.Visibility = Visibility.Collapsed;
@@ -57,22 +67,31 @@ namespace KelnerPlus
 
         }
 
+        /// <summary>
+        /// Zdarzenie do wypełniania naszych textBoxów gdy wybierzemy inny element z ListBoxMenu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListBoxMenu_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selected = ListBoxMenu.SelectedItem as MenuItem;
-            if (selected != null)
+            if (ListBoxMenu.SelectedItem is MenuItem selected)
             {
-                TextBoxTitle.Text = selected.itemName;
-                TextBoxDescription.Text = selected.description;
-                TextBoxPrice.Text = selected.price.ToString() + " PLN";
-                TextBoxIngredients.Text = selected.ingredients;
-                CheckBoxActive.IsChecked = selected.isActive;
-                CheckBoxLactose.IsChecked = selected.isLactose;
-                CheckBoxVege.IsChecked = selected.isVege;
-                btAddItem.IsEnabled = selected.isActive;
+                TextBoxTitle.Text = selected.ItemName;
+                TextBoxDescription.Text = selected.Description;
+                TextBoxPrice.Text = selected.Price.ToString() + " PLN";
+                TextBoxIngredients.Text = selected.Ingredients;
+                CheckBoxActive.IsChecked = selected.IsActive;
+                CheckBoxLactose.IsChecked = selected.IsLactose;
+                CheckBoxVege.IsChecked = selected.IsVege;
+                BtAddItem.IsEnabled = selected.IsActive;
             }
         }
 
+        /// <summary>
+        /// Zdarzenie ukrywające/pokazujące koszyk podczas przełączania między kartami TabControl
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TabControl1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded && e.Source is TabControl)
@@ -88,10 +107,15 @@ namespace KelnerPlus
                     GridForcart.Visibility = Visibility.Collapsed;
                 }
                 
-                HideInactiveItems(tabControl1.SelectedIndex + 1);
+                HideInactiveItems(TabControl1.SelectedIndex + 1);
             }
         }
 
+        /// <summary>
+        /// Metoda filtrująca nasze elementy w menu
+        /// </summary>
+        /// <param name="categoryId">według jakiej kategorii sortować</param>
+        /// <param name="onlyActive">czy pokazać tylko aktywne elementy menu</param>
         private void HideInactiveItems(int categoryId, bool onlyActive = false)
         {
             ListBoxMenu.UpdateLayout();
@@ -100,7 +124,7 @@ namespace KelnerPlus
             {
                 if (ListBoxMenu.ItemContainerGenerator.ContainerFromItem(item) is ListBoxItem listBoxItem)
                 {
-                    if ((!item.isActive && onlyActive) || item.categoryId != categoryId)
+                    if ((!item.IsActive && onlyActive) || item.CategoryId != categoryId)
                         listBoxItem.Visibility = Visibility.Collapsed;
                     else
                         listBoxItem.Visibility = Visibility.Visible;
@@ -117,48 +141,100 @@ namespace KelnerPlus
             }
         }
 
+        /// <summary>
+        /// Utworzenie instancji dla naszego nowego zamówienia
+        /// </summary>
         private void NewOrder()
         {
-            this.myOrder = new Order();
-            myOrder.Items = new List<OrderDetails>();
+            this._myOrder = new Order();
+            _myOrder.Items = new List<OrderDetails>();
             Tab1.IsSelected = true;
+
+            foreach (var tabItem in TabControl1.Items)
+            {
+                ((TabItem) tabItem).IsEnabled = true;
+            }
         }
 
+        /// <summary>
+        /// Zdarzenie dodające nasz przedmiot do koszyka
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btAddItem_Click(object sender, RoutedEventArgs e)
         {
-            var selected = ListBoxMenu.SelectedItem as MenuItem;
-            if (selected != null)
+            if (ListBoxMenu.SelectedItem is MenuItem selected)
             {
-                myOrder.TotalPrice += (selected.price * Convert.ToInt32(cbQuantity.Text));
-                myOrder.Items.Add(new OrderDetails(selected, Convert.ToInt32(cbQuantity.Text)));
+                // ilosc musi byc zaokraglona do 2 miejsc po przecinku, poniewaz konwersja  np. tekstu 7 na double da wynik 7.00000.....1
+                _myOrder.TotalPrice += (selected.Price * Math.Round(Convert.ToDouble(CbQuantity.Text), 2));
+                _myOrder.Items.Add(new OrderDetails(selected, Convert.ToInt32(CbQuantity.Text)));
             }
             
-            lvOrders.Items.Refresh();
-            Tab6.Header = "Koszyk (" + myOrder.TotalPrice + ")";
+            LvOrders.Items.Refresh();
+            Tab6.Header = "Koszyk (" + _myOrder.TotalPrice + ")";
         }
 
+        /// <summary>
+        /// Przycisk rozpoczynania oraz kończenia zamówienia wywołuje poniższe zdarzenie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btStartOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (btStartOrder.IsDefault)
+            if (BtStartOrder.IsDefault)
             {
                 NewOrder();
-                lvOrders.ItemsSource = myOrder.Items;
-                btStartOrder.IsDefault = false;
-                btStartOrder.Content = "Finalizuj zakup";
+                LvOrders.ItemsSource = _myOrder.Items;
+                BtStartOrder.IsDefault = false;
+                BtStartOrder.Content = "Finalizuj zakup";
             }
             else
             {
-                myOrder.Note = tbNote.Text;
-                AddOrderToDB(myOrder);
+                _myOrder.Note = TbNote.Text;
+                _myOrder.Status = 1;
+                DateTime myDateTime = DateTime.Now;
+                _myOrder.OrderTime = myDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                AddOrderToDB(_myOrder);
+                
                 this.DialogResult = true;
                 this.Close();
             }
 
         }
 
+        /// <summary>
+        ///  Odpowiada za przesłanie zamówienia oraz szczegółów zamówienia do bazy
+        /// </summary>
+        /// <param name="order">Nasz obiekt order, który zostanie zapisany w bazie</param>
         private void AddOrderToDB(Order order)
         {
-            //
+            
+            string insertOrder = $@"INSERT INTO [dbo].[Orders]([order_status],[order_time],[ready_time],[total_price],[note])VALUES({order.Status},'{order.OrderTime}', '{order.ReadyTime}',{order.TotalPrice},'{order.Note}')";
+            Connections.ExecuteSqlCommand(insertOrder);
+            var lastOrderId = Convert.ToInt32(Connections.ExecuteSqlCommand("SELECT IDENT_CURRENT('Orders');"));
+
+            string insertOrderDetails = "";
+            foreach (OrderDetails orderDetails in order.Items)
+            {
+                insertOrderDetails += $@"INSERT INTO [dbo].[DetailsOrder]([order_id], [menu_item_id],[quantity])VALUES({lastOrderId},{orderDetails.MenuItemId},{orderDetails.Quantity});";
+            }
+            Connections.ExecuteSqlCommand(insertOrderDetails);
+
+        }
+
+        /// <summary>
+        /// zdarzenie wywoływane gdy użytkownik kliknie Aktywuj/deaktywuj na liście menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxMenu.SelectedItem is MenuItem selected)
+            {
+                selected.IsActive = !selected.IsActive;
+                Connections.ExecuteSqlCommand($@"UPDATE MenuItems SET active= {Convert.ToInt32(selected.IsActive)} WHERE id= {selected.Id};"); 
+                this.Close();
+            }
         }
     }
 }

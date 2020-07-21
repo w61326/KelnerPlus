@@ -3,30 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KelnerPlus"
         mc:Ignorable="d"
         Title="KelnerPlus" Height="450" Width="651.662" Icon="chef.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image HorizontalAlignment="Left" Height="186" Margin="10,139,0,0" VerticalAlignment="Top" Width="188" Source="chef.png"/>
         <Label Content="Kelner+" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" FontSize="48" Foreground="#FF1EB941" FontWeight="Bold"/>
-        <Label Name="lbVersion" HorizontalContentAlignment="Right" Content="Version" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="31" Width="188"/>
+        <Label Name="LbVersion" HorizontalContentAlignment="Right" Content="Version" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="31" Width="188"/>
         <GroupBox Header="Opcje" HorizontalAlignment="Left" Height="374" Margin="360,10,0,0" VerticalAlignment="Top" Width="276">
             <Grid>
-                <Button x:Name="btNewOrder" Content="Nowe zamówienie" IsEnabled="False" HorizontalContentAlignment="Center"
+                <Button x:Name="BtNewOrder" Content="Nowe zamówienie" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,10,4,303" FontSize="24" FontWeight="Bold" Click="btNewOrder_Click"/>
-                <Button x:Name="btStatusOrders" Content="Status zamówień" IsEnabled="False" HorizontalContentAlignment="Center"
+                <Button x:Name="BtStatusOrders" Content="Status zamówień" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,80,4,233" FontSize="24" FontWeight="Bold" Click="btStatusOrders_Click"/>
-                <Button x:Name="btMenu" Content="Karta dań" IsEnabled="False" HorizontalContentAlignment="Center"
+                <Button x:Name="BtMenu" Content="Karta dań" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,150,4,163" FontSize="24" FontWeight="Bold" Click="btMenu_Click"/>
-                <Button x:Name="btSettings" Content="Ustawienia" IsEnabled="False" HorizontalContentAlignment="Center"
+                <Button x:Name="BtSettings" Content="Ustawienia" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,220,4,93" FontSize="24" FontWeight="Bold" Click="btSettings_Click"/>
-                <Button x:Name="btStats" Content="Statystyki" IsEnabled="False" HorizontalContentAlignment="Center"
+                <Button x:Name="BtStats" Content="Statystyki" IsEnabled="False" HorizontalContentAlignment="Center"
                         Margin="4,290,4,23" FontSize="24" FontWeight="Bold" Click="btStats_Click"/>
             </Grid>
 
         </GroupBox>
         <StatusBar Height="20" VerticalAlignment="Bottom" BorderThickness="1" BorderBrush="Black">
-            <TextBlock Name="tbConnectionStatus" Text="Ładowanie ustawień..."
+            <TextBlock Name="TbConnectionStatus" Text="Ładowanie ustawień..."
                        Foreground="Red" Width="650" FontWeight="Bold" TextAlignment="Center"
                        FontSize="10"/>
         </StatusBar>

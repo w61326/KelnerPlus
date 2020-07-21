@@ -1,38 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KelnerPlus
+﻿namespace KelnerPlus
 {
+    /// <summary>
+    /// Klasa przedmiotów w menu
+    /// </summary>
     public class MenuItem
     {
-        public int id { get; set; }
-        public string itemName { get; set; }
-        public string description { get; set; }
-        public int categoryId { get; set; }
-        public string ingredients { get; set; }
-        public double price { get; set; }
-        public bool isActive { get; set; }
-        public bool isVege { get; set; }
-        public bool isLactose { get; set; }
-
-        public MenuItem(int id, string itemName, string description, int categoryId, string ingredients, double price, bool isActive, bool isVege, bool isLactose)
-        {
-            this.id = id;
-            this.itemName = itemName;
-            this.description = description;
-            this.categoryId = categoryId;
-            this.ingredients = ingredients;
-            this.price = price;
-            this.isActive = isActive;
-            this.isVege = isVege;
-            this.isLactose = isLactose; 
-        }
-
-        public MenuItem()
-        {
-        }
+        public int Id { get; set; }
+        public string ItemName { get; set; }
+        public string Description { get; set; }
+        /// <summary>
+        /// Kategoria w menu, od 1-5, 1- zupy, 2- dania główne, 3- napoje, 4- przekąski, 5- desery
+        /// </summary>
+        public int CategoryId { get; set; }
+        public string Ingredients { get; set; }
+        public double Price { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsVege { get; set; }
+        public bool IsLactose { get; set; }
     }
 }

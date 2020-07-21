@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace KelnerPlus
 {
@@ -23,9 +12,10 @@ namespace KelnerPlus
         public MainWindow()
         {
             InitializeComponent();
-            lbVersion.Content = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            // pobranie wersji programu z ustawień projektu
+            LbVersion.Content = "Version: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
-            // check if there is connection with database
+            // sprawdzenie czy jest połączenie z bazą danych
             Connect();
 
 
@@ -35,28 +25,31 @@ namespace KelnerPlus
         {
             Task<bool> task = new Task<bool>(Connections.IsServerConnected);
 
+            // urochomienie procesu połączenia z bazą
             task.Start();
 
+
+            // sprawdzenie czy połączenie z bazą aktywne
             if (await task)
             {
-                tbConnectionStatus.Foreground = Brushes.ForestGreen;
-                tbConnectionStatus.Text = "Połączono z bazą danych.";
-                btNewOrder.IsEnabled = true;
-                btMenu.IsEnabled = true;
-                btStats.IsEnabled = true;
-                btStatusOrders.IsEnabled = true;
+                TbConnectionStatus.Foreground = Brushes.ForestGreen;
+                TbConnectionStatus.Text = "Połączono z bazą danych.";
+                BtNewOrder.IsEnabled = true;
+                BtMenu.IsEnabled = true;
+                BtStats.IsEnabled = true;
+                BtStatusOrders.IsEnabled = true;
             }
             else
             {
-                tbConnectionStatus.Text = "Brak połączenia z bazą danych. Sprawdź ustawienia.";
+                TbConnectionStatus.Text = "Brak połączenia z bazą danych. Sprawdź ustawienia.";
                 MessageBox.Show("Brak połączenia z bazą danych. Sprawdź ustawienia.");
-                btNewOrder.IsEnabled = false;
-                btMenu.IsEnabled = false;
-                btStats.IsEnabled = false;
-                btStatusOrders.IsEnabled = false;
+                BtNewOrder.IsEnabled = false;
+                BtMenu.IsEnabled = false;
+                BtStats.IsEnabled = false;
+                BtStatusOrders.IsEnabled = false;
             }
 
-            btSettings.IsEnabled = true;
+            BtSettings.IsEnabled = true;
 
 
 
@@ -89,35 +82,49 @@ namespace KelnerPlus
 
         private void btSettings_Click(object sender, RoutedEventArgs e)
         {
-            btNewOrder.IsEnabled = false;
-            btMenu.IsEnabled = false;
-            btStats.IsEnabled = false;
-            btStatusOrders.IsEnabled = false;
+            BtNewOrder.IsEnabled = false;
+            BtMenu.IsEnabled = false;
+            BtStats.IsEnabled = false;
+            BtStatusOrders.IsEnabled = false;
 
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.ShowDialog();
             settingsWindow.Activate();
             if (settingsWindow.DialogResult == true)
             {
-                tbConnectionStatus.Foreground = Brushes.ForestGreen;
-                tbConnectionStatus.Text = "Połączono z bazą danych.";
+                TbConnectionStatus.Foreground = Brushes.ForestGreen;
+                TbConnectionStatus.Text = "Połączono z bazą danych.";
                 MessageBox.Show("Ustanowiono połączenie z bazą!");
-                btNewOrder.IsEnabled = true;
-                btMenu.IsEnabled = true;
-                btStats.IsEnabled = true;
-                btStatusOrders.IsEnabled = true;
+                BtNewOrder.IsEnabled = true;
+                BtMenu.IsEnabled = true;
+                BtStats.IsEnabled = true;
+                BtStatusOrders.IsEnabled = true;
             }
             else
             {
-                tbConnectionStatus.Foreground = Brushes.Red;
-                tbConnectionStatus.Text = "Ładowanie ustawień...";
+                TbConnectionStatus.Foreground = Brushes.Red;
+                TbConnectionStatus.Text = "Ładowanie ustawień...";
                 Connect();
             }
         }
 
+        private async void ExportStats()
+        {
+            this.IsEnabled = false;
+            TbConnectionStatus.Foreground = Brushes.DeepSkyBlue;
+            TbConnectionStatus.Text = "Eksportowanie statystyk...";
+
+            await Task.Delay(2000);
+
+            this.IsEnabled = true;
+            TbConnectionStatus.Foreground = Brushes.ForestGreen;
+            TbConnectionStatus.Text = "Połączono z bazą danych.";
+
+        }
+
         private void btStats_Click(object sender, RoutedEventArgs e)
         {
-            var myQuery = Connections.ExecuteSqlCommand("select * FROM test");
+            ExportStats();
         }
     }
 }
