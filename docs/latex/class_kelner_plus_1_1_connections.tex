@@ -1,0 +1,157 @@
+\hypertarget{class_kelner_plus_1_1_connections}{}\doxysection{Kelner\+Plus.\+Connections Class Reference}
+\label{class_kelner_plus_1_1_connections}\index{KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_kelner_plus_1_1_connections_a86ee16fa57f14b296ef6f7e3266136c4}{Is\+Server\+Connected}} ()
+\begin{DoxyCompactList}\small\item\em Sprawdza czy jest połączenie z naszą bazą \end{DoxyCompactList}\item 
+static List$<$ \mbox{\hyperlink{class_kelner_plus_1_1_order}{Order}} $>$ \mbox{\hyperlink{class_kelner_plus_1_1_connections_a448e68a8fb4074289554ffa16353a7c3}{Ge\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em Pobieranie elementów z tabeli Orders \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{class_kelner_plus_1_1_connections_a9dffd4fd1064b2eb62b98b3f675d774e}{Execute\+Sql\+Command}} (string cmd)
+\begin{DoxyCompactList}\small\item\em Wykonanie polecenia na bazie \end{DoxyCompactList}\item 
+static List$<$ \mbox{\hyperlink{class_kelner_plus_1_1_menu_item}{Menu\+Item}} $>$ \mbox{\hyperlink{class_kelner_plus_1_1_connections_a4237ed9f6766f50810b32713c9fddbb8}{Get\+Menu\+Items}} ()
+\begin{DoxyCompactList}\small\item\em Pobieranie dostępnego menu \end{DoxyCompactList}\item 
+static string \mbox{\hyperlink{class_kelner_plus_1_1_connections_a48b1fb4bb2e0702e6d14b73dbc329b79}{Get\+Connection\+String}} ()
+\begin{DoxyCompactList}\small\item\em Pobieranie ustawień bazy \end{DoxyCompactList}\item 
+static List$<$ \mbox{\hyperlink{class_kelner_plus_1_1_order_details}{Order\+Details}} $>$ \mbox{\hyperlink{class_kelner_plus_1_1_connections_ad5375b6737d17b463ffcc1a3257de5bd}{Get\+Details}} (int order\+Id)
+\begin{DoxyCompactList}\small\item\em Pobieranie szczegółów zamówienia \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_kelner_plus_1_1_connections_af9db44c7c65eacdc237033e3c9fc7b9e}{Change\+Status}} (int my\+Order\+Id, string ready\+Time)
+\begin{DoxyCompactList}\small\item\em Zmienia status zamówienia na zakończon \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static Sql\+Connection \mbox{\hyperlink{class_kelner_plus_1_1_connections_a63bd7927c28a4cee1c9a7155c5b23d33}{Connection}}
+\item 
+static string \mbox{\hyperlink{class_kelner_plus_1_1_connections_af9d87b6f2b2d07ff69492ad6cccb3d60}{Connection\+String}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_af9db44c7c65eacdc237033e3c9fc7b9e}\label{class_kelner_plus_1_1_connections_af9db44c7c65eacdc237033e3c9fc7b9e}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!ChangeStatus@{ChangeStatus}}
+\index{ChangeStatus@{ChangeStatus}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{ChangeStatus()}{ChangeStatus()}}
+{\footnotesize\ttfamily static void Kelner\+Plus.\+Connections.\+Change\+Status (\begin{DoxyParamCaption}\item[{int}]{my\+Order\+Id,  }\item[{string}]{ready\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Zmienia status zamówienia na zakończon 
+
+$<$/summary 
+\begin{DoxyParams}{Parameters}
+{\em my\+Order\+Id} & id zamówienia, które trzeba zakończyć$<$/param 
+\begin{DoxyParams}{Parameters}
+{\em ready\+Time} & czas zakończenia$<$/param \\
+\hline
+\end{DoxyParams}
+\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_a9dffd4fd1064b2eb62b98b3f675d774e}\label{class_kelner_plus_1_1_connections_a9dffd4fd1064b2eb62b98b3f675d774e}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!ExecuteSqlCommand@{ExecuteSqlCommand}}
+\index{ExecuteSqlCommand@{ExecuteSqlCommand}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{ExecuteSqlCommand()}{ExecuteSqlCommand()}}
+{\footnotesize\ttfamily static string Kelner\+Plus.\+Connections.\+Execute\+Sql\+Command (\begin{DoxyParamCaption}\item[{string}]{cmd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Wykonanie polecenia na bazie 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & S\+QL query\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+zwraca pierwszy element odpowiedzi z bazy 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_a448e68a8fb4074289554ffa16353a7c3}\label{class_kelner_plus_1_1_connections_a448e68a8fb4074289554ffa16353a7c3}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!GeOrders@{GeOrders}}
+\index{GeOrders@{GeOrders}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{GeOrders()}{GeOrders()}}
+{\footnotesize\ttfamily static List$<$\mbox{\hyperlink{class_kelner_plus_1_1_order}{Order}}$>$ Kelner\+Plus.\+Connections.\+Ge\+Orders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Pobieranie elementów z tabeli Orders 
+
+\begin{DoxyReturn}{Returns}
+zwraca listę Zamówień
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_a48b1fb4bb2e0702e6d14b73dbc329b79}\label{class_kelner_plus_1_1_connections_a48b1fb4bb2e0702e6d14b73dbc329b79}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!GetConnectionString@{GetConnectionString}}
+\index{GetConnectionString@{GetConnectionString}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{GetConnectionString()}{GetConnectionString()}}
+{\footnotesize\ttfamily static string Kelner\+Plus.\+Connections.\+Get\+Connection\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Pobieranie ustawień bazy 
+
+\begin{DoxyReturn}{Returns}
+zwraca Connection\+String
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_ad5375b6737d17b463ffcc1a3257de5bd}\label{class_kelner_plus_1_1_connections_ad5375b6737d17b463ffcc1a3257de5bd}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!GetDetails@{GetDetails}}
+\index{GetDetails@{GetDetails}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{GetDetails()}{GetDetails()}}
+{\footnotesize\ttfamily static List$<$\mbox{\hyperlink{class_kelner_plus_1_1_order_details}{Order\+Details}}$>$ Kelner\+Plus.\+Connections.\+Get\+Details (\begin{DoxyParamCaption}\item[{int}]{order\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Pobieranie szczegółów zamówienia 
+
+
+\begin{DoxyParams}{Parameters}
+{\em order\+Id} & id zamówienia, którego szczegóły zamóienia szukamy\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+zwraca listę szczegółów zamówienia
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_a4237ed9f6766f50810b32713c9fddbb8}\label{class_kelner_plus_1_1_connections_a4237ed9f6766f50810b32713c9fddbb8}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!GetMenuItems@{GetMenuItems}}
+\index{GetMenuItems@{GetMenuItems}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{GetMenuItems()}{GetMenuItems()}}
+{\footnotesize\ttfamily static List$<$\mbox{\hyperlink{class_kelner_plus_1_1_menu_item}{Menu\+Item}}$>$ Kelner\+Plus.\+Connections.\+Get\+Menu\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Pobieranie dostępnego menu 
+
+\begin{DoxyReturn}{Returns}
+zwraca listę przedmiotów w menu
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_a86ee16fa57f14b296ef6f7e3266136c4}\label{class_kelner_plus_1_1_connections_a86ee16fa57f14b296ef6f7e3266136c4}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!IsServerConnected@{IsServerConnected}}
+\index{IsServerConnected@{IsServerConnected}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{IsServerConnected()}{IsServerConnected()}}
+{\footnotesize\ttfamily static bool Kelner\+Plus.\+Connections.\+Is\+Server\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Sprawdza czy jest połączenie z naszą bazą 
+
+\begin{DoxyReturn}{Returns}
+zwraca true, jeżeli połączenie zostało utworzone
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_a63bd7927c28a4cee1c9a7155c5b23d33}\label{class_kelner_plus_1_1_connections_a63bd7927c28a4cee1c9a7155c5b23d33}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!Connection@{Connection}}
+\index{Connection@{Connection}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{Connection}{Connection}}
+{\footnotesize\ttfamily Sql\+Connection Kelner\+Plus.\+Connections.\+Connection\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_kelner_plus_1_1_connections_af9d87b6f2b2d07ff69492ad6cccb3d60}\label{class_kelner_plus_1_1_connections_af9d87b6f2b2d07ff69492ad6cccb3d60}} 
+\index{KelnerPlus.Connections@{KelnerPlus.Connections}!ConnectionString@{ConnectionString}}
+\index{ConnectionString@{ConnectionString}!KelnerPlus.Connections@{KelnerPlus.Connections}}
+\doxysubsubsection{\texorpdfstring{ConnectionString}{ConnectionString}}
+{\footnotesize\ttfamily string Kelner\+Plus.\+Connections.\+Connection\+String\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Git\+Hub/\+Kelner\+Plusv2/\mbox{\hyperlink{_connections_8cs}{Connections.\+cs}}\end{DoxyCompactItemize}
