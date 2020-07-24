@@ -108,6 +108,9 @@ namespace KelnerPlus
             }
         }
 
+        /// <summary>
+        /// metoda eksportująca statystyki
+        /// </summary>
         private async void ExportStats()
         {
             this.IsEnabled = false;
@@ -122,6 +125,11 @@ namespace KelnerPlus
 
         }
 
+        /// <summary>
+        /// zdarzenie po kliknięciu eksportuj statystyki
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btStats_Click(object sender, RoutedEventArgs e)
         {
             ExportStats();

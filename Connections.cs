@@ -6,6 +6,9 @@ using System.Windows;
 
 namespace KelnerPlus
 {
+    /// <summary>
+    /// klasa do interakcji z bazą
+    /// </summary>
     public class Connections
     {
         public static SqlConnection Connection;
@@ -100,7 +103,7 @@ namespace KelnerPlus
         /// <summary>
         /// Wykonanie polecenia na bazie
         /// </summary>
-        /// <param name="cmd">SQL query</param>
+        /// <param name="cmd">SQL query jako string</param>
         /// <returns> zwraca pierwszy element odpowiedzi z bazy </returns>
         public static string ExecuteSqlCommand(string cmd)
         {
@@ -256,17 +259,13 @@ namespace KelnerPlus
 
             return ordersDetails;
         }
-
         
+
         /// <summary>
         /// Zmienia status zamówienia na zakończon
-
-        /// </summary
-
-        /// <param name="myOrderId">id zamówienia, które trzeba zakończyć</param
-
-        /// <param name="readyTime">czas zakończenia</param
-
+        /// </summary>
+        /// <param name="myOrderId">id zamówienia, które trzeba zakończyć</param>
+        /// <param name="readyTime">czas zakończenia</param>
         public static void ChangeStatus(int myOrderId, string readyTime)
         {
             Connections.ExecuteSqlCommand($@"UPDATE Orders SET order_status=2, ready_time='{readyTime}' WHERE id= {myOrderId};");
